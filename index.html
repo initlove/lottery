@@ -3,10 +3,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>SUSE 抽奖</title>
 	<meta name="description" content="SUSE抽奖">
-	<link rel="stylesheet" type="text/css" href="novell_lottery_files/jquery-ui-1.css">
-	<link rel="stylesheet" type="text/css" href="novell_lottery_files/style.css">
-	<script type="text/javascript" src="novell_lottery_files/jquery.js"></script>
-	<script type="text/javascript" src="novell_lottery_files/jquery-ui-1.js"></script>
+	<link rel="stylesheet" type="text/css" href="source/jquery-ui-1.css">
+	<link rel="stylesheet" type="text/css" href="source/style.css">
+	<script type="text/javascript" src="source/jquery.js"></script>
+	<script type="text/javascript" src="source/jquery-ui-1.js"></script>
 
 <style type="text/css">
 table{
@@ -17,7 +17,6 @@ table{
 }
 
 th, td{
-	border: 2px solid #333;
 }
 
 label{
@@ -38,34 +37,21 @@ textarea{
 }
 
 #main{
-	color: #fff;
+	color: #00f;
 	margin: 0 auto;
-	width: 900px;
-}
-
-#event_title{
-	color: #fff;
-	margin: 26px;
-	padding: 0;
-	font-size: 45px;
-	text-align: center;
-}
-#event_title span{
-	padding: 0 32px;
-	background: #222;
+    width: 900px; 
 }
 
 #rolling_board{
-	color: #000;
+	color: #fff;
 	line-height: 40px;
-	font-size: 40px;
+	font-size: 36px;
 	font-weight: bold;
 	margin: 34px auto;
 	padding: 8px;
-	width: 640px;
-	text-align: center;
-	background: #ff3;
-	border: 6px solid #03f;
+    position: fixed;
+    left: 57%;
+    top: 45%;
 }
 
 #current_step{
@@ -82,52 +68,36 @@ textarea{
 	padding: 4px;
 	font-size: 14px;
 	text-align: center;
-	border: 3px solid #33f;
 	height: 580px;
 }
 
-#tabs-2,
-#tabs-3{
+#tabs-2{
 	padding: 4px;
-	border: 1px solid #ccc;
-}
-
-#tabs-3 h3{
-	padding-left: 6px;
-	border-left: 6px solid #c00;
 }
 
 #rotate_div{
 	padding-top: 60px;
-	height: 400px;
+	height: 5%;
 }
 
 #print_box{
-	margin-top: 20px;
+	margin-top: 50px;
 	font-weight: bold;
-	font-size: 48px;
-	width: 50%;
+	font-size: 40px;
+    width: 200px;
+    height: 216px;
 	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-	background: #222;
+    margin-right: auto;
+    position: fixed;
+    left: 57%; 
+    top: 50%;
+    background: #222;
 }
 #print_box span{
 	margin: 20px;
-	color: #aaa;
+	color: #ff0;
 }
 
-#enter_btn span{
-	font-size: 18px;
-	font-weight: bold;
-	cursor: pointer;
-	padding: 6px 18px;
-	background: #33f;
-	border-left: 2px solid #ddd;
-	border-top: 2px solid #ddd;
-	border-right: 3px solid #333;
-	border-bottom: 3px solid #333;
-}
 </style>
 
 </head>
@@ -146,10 +116,6 @@ $(function(){
 	game = new Game();
 	save_setting();
 
-	// 绑定按钮键盘操作
-	$('#enter_btn span').click(function(){
-		game.process();
-	});
 });
 
 // 绑定回车键盘操作
@@ -182,12 +148,10 @@ $(document).keypress(function (e){
 
 
 <div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="tabs-1" style="background: url(&quot;background.jpg&quot;) no-repeat scroll 0% 0% transparent;">
-	<h1 id="event_title"><span>抽奖环节</span></h1>
 
 	<div style="display: block;" id="rotate_div">
-		<div><span id="current_step">大奖(1个)</span></div>
         <div style="display: block;" id="rolling_board"><span style="color: #000"></span></div>
-		<div id="print_box">按回车继续</div>
+		<div id="print_box" style="background: url(&quot;coffee.png&quot;)"></div>
 	</div>
 </div>
 <!-- /#tabs-1 -->
@@ -204,14 +168,12 @@ $(document).keypress(function (e){
 
 	<label>候选人列表</label>
 	<div>每行一人, 或半角逗号分隔</div>
-<textarea name="candidates" rows="6" cols="84">attachmate
-benegg
-Tom, Marry, Jim, Robin
-Lucy, Lily, Lilei, Hanmeimei
-Catherine, Linton, Lockwood
-Charly, Bill, Emily, Penny
-Rose, Jen, William, Philips
-Hitler, Stalin
+<textarea name="candidates" rows="6" cols="84">
+134xxxx1893, 134xxxx3280,
+134xxxx1893, 134xxxx3280,
+134xxxx1893, 134xxxx3280,
+134xxxx1893, 134xxxx3280,
+134xxxx1893, 134xxxx3280
 </textarea>
 
 	<label>跳动时间间隔</label>
@@ -226,9 +188,6 @@ Hitler, Stalin
 	<p><input value="保存" onclick="save_setting()" type="button"></p>
 </div>
 <!-- /#tabs-2 -->
-
-<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="tabs-3"><h2>大等奖</h2><br>BrainShare<br></div>
-<!-- /#tabs-3 -->
 
 </div>
 
@@ -344,13 +303,8 @@ var Game = function(){
 		}
 		
         show_current_step('');
-        var str = '<br/>奖品：咖啡机';
-        str += '<br/>';
-		str += '请按回车开始';
-		str += '<br/><br/>';
-        print_box(str); 
 		
-		$('#rolling_board').hide();
+        $('#rolling_board').html("抽奖环节");
 		$('#rotate_div').css('background', '');
 	}
 
@@ -366,10 +320,8 @@ var Game = function(){
 		// 先更新状态再执行函数
 		switch(self.action){
 			case 'open':
-				self.action = 'step_open';
-				$('#rotate_div').hide();
-				on_open();
-				$('#rotate_div').fadeIn('slow');
+                self.action = 'rotate_stop';
+                on_rotate_start();
 				break;
 			case 'close':
 				self.action = '';
@@ -420,14 +372,8 @@ function on_close(){
 	show_current_step('');
 
 	$('#print_box').hide();
-	var str = '';
-	str += '<span><b style="font-size: 62px; background: #36f;">抽奖结束</b><span><br/>';
-	str += '<br/><br/>';
-	str += '官方网站: ';
-	str += '<a href="' + 'http://ww' + 'w.ide' + 'awu.n' + 'et/' + 'bl' + 'og/"' + '>htt' + 'p://' + 'www.id' + 'eawu' + '.net/<' + '/a>';
-	print_box(str);
-	$('#print_box').fadeIn('slow', function(){
-		$('#rotate_div').css('background', 'url(framework.gif)');
+	$('#print_box').fadeIn('fast', function(){
+		$('#rotate_div').css('background', 'url(background.png)');
 	});
 }
 
@@ -464,7 +410,6 @@ function on_rotate_start(){
 	rotate_run();
 
 	show_current_step();
-	print_box('按回车停止');
 }
 
 
@@ -498,7 +443,6 @@ function rotate_run(){
 		game.candidates = array_del_all(game.candidates, arr);
 
 		show_results();
-		print_box('按回车继续');
 
 		if(game.results[game.step].length == game.prizes[game.step].num){
 			game.step ++;
@@ -593,7 +537,6 @@ function save_setting(){
 		game.candidates.push(p);
 	}
 
-	$('#event_title span').html($('input[name=title]').val());
 	$('#tabs-1').css('background', 'url(' + $('input[name=background_image]').val() + ') no-repeat');
 
 	game.init();
