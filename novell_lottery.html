@@ -38,7 +38,7 @@ textarea{
 }
 
 #main{
-	color: #aaa;
+	color: #f00;
 	margin: 0 auto;
 	width: 900px;
 }
@@ -52,7 +52,7 @@ textarea{
 }
 #event_title span{
 	padding: 0 32px;
-	background: #03e;
+	background: #222;
 }
 
 #rolling_board{
@@ -87,19 +87,14 @@ textarea{
 }
 
 #tabs-2,
-#tabs-3,
-#tabs-4{
+#tabs-3{
 	padding: 4px;
 	border: 1px solid #ccc;
 }
 
-#tabs-3 h3,
-#tabs-4 h3{
+#tabs-3 h3{
 	padding-left: 6px;
 	border-left: 6px solid #c00;
-}
-#tabs-4 h2{
-	text-align: center;
 }
 
 #rotate_div{
@@ -108,31 +103,21 @@ textarea{
 }
 
 #print_box{
-	margin-top: 30px;
+	margin-top: 50px;
 	font-weight: bold;
-	font-size: 28px;
-	width: 70%;
+	font-size: 40px;
+    width: 295px;
+    height: 318px;
 	margin-left: auto;
 	margin-right: auto;
-	text-align: center;
+    text-align: center;
+    background: #222;
 }
 #print_box span{
-	margin: 4px;
-	color: #fff;
-	background: #36f;
+	margin: 20px;
+	color: #f00;
 }
 
-#enter_btn span{
-	font-size: 18px;
-	font-weight: bold;
-	cursor: pointer;
-	padding: 6px 18px;
-	background: #33f;
-	border-left: 2px solid #ddd;
-	border-top: 2px solid #ddd;
-	border-right: 3px solid #333;
-	border-bottom: 3px solid #333;
-}
 </style>
 
 </head>
@@ -151,10 +136,6 @@ $(function(){
 	game = new Game();
 	save_setting();
 
-	// 绑定按钮键盘操作
-	$('#enter_btn span').click(function(){
-		game.process();
-	});
 });
 
 // 绑定回车键盘操作
@@ -186,34 +167,28 @@ $(document).keypress(function (e){
 	<div style="margin-bottom: 60px;">&nbsp;</div>
 
 
-<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="tabs-1" style="background: url(&quot;1.jpg&quot;) no-repeat scroll 0% 0% transparent;">
-	<h1 id="event_title"><span>SUSE China Lottery</span></h1>
+<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="tabs-1" style="background: url(&quot;background.jpg&quot;) no-repeat scroll 0% 0% transparent;">
 
 	<div style="display: block;" id="rotate_div">
-		<div><span id="current_step">三等奖(4个, 1-2)</span></div>
-
-		<div style="display: block;" id="rolling_board"><span style="color: #333">William Philips</span></div>
-		
-		<div id="print_box">按回车继续</div>
+        <div style="display: block;" id="rolling_board"><span style="color: #000"></span></div>
+		<div id="print_box" style="background: url(&quot;coffee.png&quot;)">按回车继续</div>
 	</div>
-	<div id="enter_btn"><span>Enter</span></div>
 </div>
 <!-- /#tabs-1 -->
 
 <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="tabs-2" style="background: #fff;">
-	<label>SUSE China Lottery</label>
-	<div><input name="title" value="SUSE China Lottery" type="text"></div>
+	<label>抽奖环节</label>
+	<div><input name="title" value="抽奖环节" type="text"></div>
 
 	<label>奖项设置</label>
 	<div>每行一个奖项, 格式为竖线分隔的: 奖项名|数量|每次抽几个|奖品</div>
-<textarea name="prizes" rows="6" cols="84">三等奖|4|2|美女1名/每人
-二等奖|2|2|100万美金/每人
-一等奖|1|1|10本世界名著/每人
+<textarea name="prizes" rows="6" cols="84">
+    大奖|1|1|咖啡机
 </textarea>
 
 	<label>候选人列表</label>
 	<div>每行一人, 或半角逗号分隔</div>
-<textarea name="candidates" rows="6" cols="84">ideawu.net
+<textarea name="candidates" rows="6" cols="84">attachmate
 benegg
 Tom, Marry, Jim, Robin
 Lucy, Lily, Lilei, Hanmeimei
@@ -229,52 +204,17 @@ Hitler, Stalin
 
 	<label>背景图片</label>
 	<div>可以输入图片链接使用网络上的图片, 也可以把图片拷贝到当前目录, 把图片文件名填入即可.</div>
-	<div><input name="background_image" value="1.jpg" type="text"></div>
+	<div><input name="background_image" value="background.jpg" type="text"></div>
 
 
 	<p><input value="保存" onclick="save_setting()" type="button"></p>
 </div>
 <!-- /#tabs-2 -->
 
-<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="tabs-3"><h2>一等奖</h2><br><h2>二等奖</h2><br><h2>三等奖</h2>William &nbsp;Philips &nbsp;<br></div>
+<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="tabs-3"><h2>大等奖</h2><br>BrainShare<br></div>
 <!-- /#tabs-3 -->
 
-<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="tabs-4">
-	<h2>幸运抽奖软件</h2>
-	<p>由<a href="http://www.ideawu.net/blog/">ideawu</a>开发的抽奖程序, 可用于年会抽奖, 电视台抽奖等. ideawu_lottery由JavaScript+HTML+CSS开发而成, 只要拥有浏览器就可运行.</p>
-
-	<h3>操作方便</h3>
-	<p>抽奖过程全键盘操作, 只需要按回车(Enter)键即可, 类似播放PPT幻灯片, 非常简单.</p>
-
-	<h3>配置灵活</h3>
-	<p>可配置的选项有: 活动标题, 奖项, 候选人, 摇奖时的跳转速度, 背景图片. 其中, 每一个奖项, 可以一次开完, 
-也可以一次只开一部分. 例如, 三等奖一共6个, 每次只开2个, 需要开3次才能开完三等奖, 增加娱乐性. 
-图片可以更换为带自己公司Logo的图片, 以便适应当前节日, 所以, 本抽奖程序任何节日的任何类似的抽奖节目都可使用.</p>
-
-	<h3>完全免费</h3>
-	<p>本抽奖工具完全免费, 不保留任何付费功能! 当然, 如果你觉得本工具非常好用, 想向我说声"谢谢", 可以访问我的网站 <a href="http://www.ideawu.net/blog/">http://www.ideawu.net/blog/</a>, 或者给我发邮件 <a href="mailto:%20ideawu@163.com">ideawu@163.com</a>. 希望这个小工具能帮助你, 给你带来欢乐!</p>
-
-	<h3>开放源码</h3>
-	<p>对于带有Geek精神, 爱好编程的朋友, 想对这个小工具做一些小修改, 这是完全可以的. 这个小工具完全开放源码, 一般会做网站的人都能做个性化的修改. 如果你修改后觉得很满意, 可以告诉我^_^.</p>
-
-	<h3>抽奖流程</h3>
-<pre>等待开始
-开场(open): 奖项介绍
-奖项循环: 如果多于一个奖项, 则循环
-	奖项开场(step_open)
-	摇奖循环: 如果不是一次开完一个奖项, 则循环
-		摇奖开始(rotate_start)
-		摇奖结束(rotate_stop)
-	奖项结束(step_close): 单项中奖名单
-闭场(close)
-</pre>
-
 </div>
-<!-- /#tabs-4 -->
-
-</div>
-
-
 
 
 <script type="text/javascript">
@@ -387,10 +327,12 @@ var Game = function(){
 			self.results[i] = [];
 		}
 		
-		show_current_step('');
-		var str = '请按回车开始';
+        show_current_step('');
+        var str = '<br/>抽奖环节';
+        str += '<br/>';
+		str += '请按回车开始';
 		str += '<br/><br/>';
-		print_box('请按回车开始, 或者点击下方的 Enter 按钮');
+        print_box(str); 
 		
 		$('#rolling_board').hide();
 		$('#rotate_div').css('background', '');
@@ -408,10 +350,8 @@ var Game = function(){
 		// 先更新状态再执行函数
 		switch(self.action){
 			case 'open':
-				self.action = 'step_open';
-				$('#rotate_div').hide();
-				on_open();
-				$('#rotate_div').fadeIn('slow');
+                self.action = 'rotate_stop';
+                on_rotate_start();
 				break;
 			case 'close':
 				self.action = '';
@@ -438,8 +378,8 @@ var Game = function(){
 			case 'rotate_stop':
 				on_rotate_stop();
 				break;
-			default:
-				save_setting();
+			default :
+         			save_setting ();
 				break;
 		}
 	};
@@ -462,14 +402,12 @@ function on_close(){
 	show_current_step('');
 
 	$('#print_box').hide();
-	var str = '';
-	str += '<span><b style="font-size: 62px; background: #36f;">抽奖结束</b><span><br/>';
-	str += '<br/><br/>';
-	str += '官方网站: ';
-	str += '<a href="' + 'http://ww' + 'w.ide' + 'awu.n' + 'et/' + 'bl' + 'og/"' + '>htt' + 'p://' + 'www.id' + 'eawu' + '.net/<' + '/a>';
+    var str = '抽奖结束';
+    str += '<br/>';
+    str += '感谢参与';
 	print_box(str);
 	$('#print_box').fadeIn('slow', function(){
-		$('#rotate_div').css('background', 'url(framework.gif)');
+		$('#rotate_div').css('background', 'url(coffee.png)');
 	});
 }
 
@@ -547,7 +485,7 @@ function rotate_run(){
 			game.action = 'step_close';
 		}
 
-		var h = '<span style="color: #333">' + $('#rolling_board').html() + '</span>';
+		var h = '<span style="color: #000">' + $('#rolling_board').html() + '</span>';
 		$('#rolling_board').html(h)
 	}else{
 		setTimeout('rotate_run()', game.interval);
@@ -635,7 +573,6 @@ function save_setting(){
 		game.candidates.push(p);
 	}
 
-	$('#event_title span').html($('input[name=title]').val());
 	$('#tabs-1').css('background', 'url(' + $('input[name=background_image]').val() + ') no-repeat');
 
 	game.init();
