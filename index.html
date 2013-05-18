@@ -51,7 +51,7 @@ textarea{
 	padding: 8px;
     position: fixed;
     left: 57%;
-    top: 45%;
+    top: 44%;
 }
 
 #current_step{
@@ -90,7 +90,7 @@ textarea{
     margin-right: auto;
     position: fixed;
     left: 57%; 
-    top: 50%;
+    top: 52%;
     background: #222;
 }
 #print_box span{
@@ -316,7 +316,6 @@ var Game = function(){
 
 	this.process = function(){
 		show_results();
-
 		// 先更新状态再执行函数
 		switch(self.action){
 			case 'open':
@@ -346,7 +345,13 @@ var Game = function(){
 				on_rotate_start();
 				break;
 			case 'rotate_stop':
-				on_rotate_stop();
+                on_rotate_stop();
+				if(self.step == self.prizes.length){
+					self.action = 'close';
+				}else{
+					self.action = 'step_open';
+				}
+                on_step_close();
 				break;
 			default :
          			save_setting ();
@@ -385,15 +390,14 @@ function on_step_open(){
 
 function on_step_close(){
 	var str = '';
-	str += '<span>&nbsp;* 中奖名单 *&nbsp;<br/><br/>';
+	str += '<span>&nbsp;* 中奖名单 *&nbsp;<br/>';
 	var r = game.results[game.step - 1];
 	for(var n=0; n<r.length; n++){
 		str += ' &nbsp;' + r[n];
 	}
 	str += '</span>';
 	
-	print_box(str);
-	$('#rolling_board').slideUp('normal');
+	$('#rolling_board').html(str);
 }
 
 function on_rotate_start(){
@@ -446,11 +450,10 @@ function rotate_run(){
 
 		if(game.results[game.step].length == game.prizes[game.step].num){
 			game.step ++;
-			game.action = 'step_close';
-		}
+            game.action = 'step_close';
 
-		var h = '<span style="color: #000">' + $('#rolling_board').html() + '</span>';
-		$('#rolling_board').html(h)
+			on_step_close();
+		}
 	}else{
 		setTimeout('rotate_run()', game.interval);
 	}
