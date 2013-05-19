@@ -169,11 +169,11 @@ $(document).keypress(function (e){
 	<label>候选人列表</label>
 	<div>每行一人, 或半角逗号分隔</div>
 <textarea name="candidates" rows="6" cols="84">
-134xxxx1893, 134xxxx3280,
-134xxxx1893, 134xxxx3280,
-134xxxx1893, 134xxxx3280,
-134xxxx1893, 134xxxx3280,
-134xxxx1893, 134xxxx3280
+13412341893, 13432809381,
+13389313445, 13913093100,
+13490210434, 13132800000,
+13533211093, 13342313280,
+13409819113, 13432801230
 </textarea>
 
 	<label>跳动时间间隔</label>
@@ -391,10 +391,10 @@ function on_step_open(){
 function on_step_close(){
 	var str = '';
 	str += '<span>&nbsp;* 中奖名单 *&nbsp;<br/>';
-	var r = game.results[game.step - 1];
-	for(var n=0; n<r.length; n++){
-		str += ' &nbsp;' + r[n];
-	}
+    var r = game.results[game.step - 1];
+    for(var n=0; n<r.length; n++){
+        str += ' &nbsp;' + r[n].substring(0,3) +'XXXX'+r[n].substring(7);
+    }
 	str += '</span>';
 	
 	$('#rolling_board').html(str);
@@ -432,8 +432,12 @@ function rotate_run(){
 		size = num_a;
 	}
 
-	var arr = array_slice(game.candidates, game.rotate_index, size);
-	$('#rolling_board').html(arr.join(' '));
+    var arr = array_slice(game.candidates, game.rotate_index, size);
+
+    var mask_number = arr.join(' ');
+    mask_number = mask_number.substring(0, 3) +'XXXX'+mask_number.substring(7);
+
+	$('#rolling_board').html(mask_number);
 
 	game.rotate_index += num_a;
 	if(game.rotate_index >= game.candidates.length){
@@ -507,7 +511,7 @@ function show_results(){
 			str += r[n] + ' &nbsp;';
 		}
 		str += '<br/>';
-	}
+    }
 	$('#tabs-3').html(str);
 }
 
