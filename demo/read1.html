@@ -1,0 +1,45 @@
+<html> 
+    <head> 
+     <meta http-equiv="Content-Type" content="text/html; charset=utf8" /> 
+     <title>麦子编程实例(www.ykmaiz.com)</title> 
+     <script language="javascript"> 
+     function readThis(){ 
+         var filePath= document.all.upfile.value;
+         filepath = "/tmp/dd1";
+                    alert (filepath);
+                    fso = new ActiveXObject("Scripting.FileSystemObject"); 
+                    f1 = fso.GetFile(filePath); 
+                    var ts = fso.OpenTextFile(f1); 
+                     
+                  // 读取文件一行内容到字符串 
+                     
+                    var s = ts.ReadAll(); 
+                     
+                  // 关闭文件 
+                         
+                      var ss; 
+                      for(var i = 0; i < s.length;i++) 
+                      { 
+                             ss +=s[i];   
+                         } 
+                         
+                      document.forms[0].txtArea.value = ss; 
+                         
+                         
+                      ts.Close(); 
+                     
+                     
+                  } 
+             </script> 
+             
+          </head> 
+         
+      <body> 
+          <form> 
+              <input type="file" id="upfile" /> 
+              <input type="button" onclick="readThis();" value="读取"> 
+              <br> 
+              <textarea id="txtArea" cols=50 rows=10></textarea> 
+              </form> 
+    </body> 
+     </html>
